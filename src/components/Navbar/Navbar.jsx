@@ -5,43 +5,52 @@ import logoUrl from '../../assets/logo.svg'; // Importando como URL
 import classNames from 'classnames';
 import { RiShoppingCart2Line, RiShoppingCartFill } from 'react-icons/ri';
 import Busca from '../../components/Busca/Busca';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const iconeProps = {
     color: 'white',
     size: 24,
   };
-  const navigate = useNavigate()
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <nav className={styles.nav}>
-      <img src={logoUrl} alt="Logo" className={styles.logo} />{' '}
+      <img
+        src={logoUrl}
+        alt="Logo"
+        className={styles.logo}
+        onClick={() => navigate('/')}
+      />{' '}
       {/* Usando img */}
       <div className={styles.links}>
         <div>
-          <span
-            onClick={() => navigate('/')}
+          <Link
+            to="/"
             // sendo o primeiro parametro a classe que não é condicional
             className={classNames(styles.link, {
-              [styles.selected]: window.location.pathname === '/',
+              // ao invés de usar o 'window' importamos o location do react-router-dom
+              // [styles.selected]: window.location.pathname === '/',
+              [styles.selected]: location.pathname === '/',
             })}
           >
             Página inicial
-          </span>
+          </Link>
         </div>
       </div>
       <div className={styles.busca}>
         <Busca />
       </div>
       <div className={styles.icones}>
-        <a href="carrinho">
-          {window.location.pathname === '/carrinho' ? (
+        <Link href="carrinho" to="/carrinho">
+          {location.pathname === '/carrinho' ? (
             <RiShoppingCartFill {...iconeProps} />
           ) : (
             <RiShoppingCart2Line {...iconeProps} />
           )}
-        </a>
+        </Link>
       </div>
     </nav>
   );

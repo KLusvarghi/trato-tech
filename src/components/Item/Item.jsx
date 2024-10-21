@@ -1,9 +1,10 @@
 import styles from './Item.module.scss';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { FaCartPlus } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // importando a action de itens
 import { mudarFavorito } from '@/store/reducers/itens';
+import { mudarCarrinho } from '@/store/reducers/carrinho';
 
 const iconeProps = {
   size: 24,
@@ -16,11 +17,21 @@ const Item = (props) => {
   // instanciando o dispath a uma variável
   const dispatch = useDispatch();
 
-  function resolverFavorito() {
+  // com o useSelector iremos validar se o item está dentro do carrinho
+  const estarNoCarrinho = useSelector((state) =>
+    state.carrinho.some((itemCarrinho) => itemCarrinho.id === id),
+  );
+
+  const resolverFavorito = () => {
     // dispachando uma ação
     // apenas assim uma action é executada (disparada)
     dispatch(mudarFavorito(id));
-  }
+  };
+
+  const resolverCarrinho = () => {
+    // dispachando a action passando o id do item como parametro
+    dispatch(mudarCarrinho(id));
+  };
 
   return (
     <div className={styles.item}>
@@ -51,8 +62,10 @@ const Item = (props) => {
             )}
             <FaCartPlus
               {...iconeProps}
-              color={true ? '#1875E8' : iconeProps.color}
+              // 'estarNoCarrinho' nos retorna um boolean, sendo facil saber se está ou não no vcarrinho
+              color={estarNoCarrinho ? '#1875E8' : iconeProps.color}
               className={styles['item-acao']}
+              onClick={resolverCarrinho}
             />
           </div>
         </div>
