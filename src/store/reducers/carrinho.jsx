@@ -31,15 +31,17 @@ const carrinhoSlice = createSlice({
     mudarQuantidade: (state, { payload }) => {
       // poderiamos criar ou adicionar e remover quantidade, porém podemos apenas usar o payload e acrescentar ou diminuir ele
       // percorrendo todos os valores
-      state = state.map(itemNoCarrinho => {
-        if(itemNoCarrinho.id === payload.id) itemNoCarrinho.quantidade += payload.quantidade;
+      state = state.map((itemNoCarrinho) => {
+        if (itemNoCarrinho.id === payload.id)
+          itemNoCarrinho.quantidade += payload.quantidade;
         return itemNoCarrinho;
-      })
+      });
     },
+    resetarCarrinho: () => initialState,
   },
 });
 
-export const { mudarCarrinho, mudarQuantidade } = carrinhoSlice.actions;
+export const { mudarCarrinho, mudarQuantidade, resetarCarrinho } = carrinhoSlice.actions;
 
 // agora sim estamos exportando o reducer, e agora ele pode ser usado como reducer dentro do index
 export default carrinhoSlice.reducer;
