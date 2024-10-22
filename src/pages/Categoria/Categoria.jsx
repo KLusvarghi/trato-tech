@@ -1,8 +1,8 @@
-import Header from '../../components/Header/Header';
+import Header from '@/components/Header/Header';
+import Item from '@/components/Item/Item';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styles from './Categoria.module.scss'
-import Item from '@/components/Item/Item';
 
 const Categoria = () => {
   // pegando esse "nomeCategoria" que é a rota que passamos em 'routes'
@@ -15,7 +15,7 @@ const Categoria = () => {
     // const apenasItens = useSelector(state => state.itens);
 
   // dessa maneira, como retornamos um objeto que tem duas propriedade 'categoria' e 'itens', precisamos destruturar ao inves de 'const categoria = ...'
-  const { categoria, itens } = useSelector((state) => ({
+  const { categoria, itens } = useSelector(state => ({
     categoria: state.categorias.find(
       (categoria) => categoria.id === nomeCategoria, //  precisamos pegar a categoria onde categoria.id seja igual ao ID daquela rota
       // a categoria que for igual a categoria clicada pelo usuário (que no caso é o id) ele nos retornará

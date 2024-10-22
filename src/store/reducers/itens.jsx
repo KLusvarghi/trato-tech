@@ -299,7 +299,8 @@ const itensSlice = createSlice({
       // nesta parte é onde alteramos o estado do objeto ou valor do store
       state = state.map(item => {
         // sendo o playload o id do item
-        if(item.id === payload) item.favorito = !item.favorito
+        if(item.id === payload) item.favorito = !item.favorito;
+        return item
       })
     },
   },
