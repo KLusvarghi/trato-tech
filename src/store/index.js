@@ -2,6 +2,9 @@ import { configureStore  } from '@reduxjs/toolkit'
 import categoriasSlice from './reducers/categorias'
 import itensSlice from './reducers/itens'
 import carrinhoSlice from './reducers/carrinho'
+import buscaSlice from './reducers/busca'
+
+// aqui eremos exportar o store
 
 // criando um store (estado)
 const store = configureStore({
@@ -10,7 +13,8 @@ const store = configureStore({
   reducer: {
     categorias: categoriasSlice, //por enquanto o 'categoriasSlice' não é um reducer em si até que dentro exportemos o reducer dentro de categorias; ele tem variás coisas e podemos exportar várias coisas dele, e uma deles é o reducer
     itens: itensSlice, //por enquanto o 'categoriasSlice' não é um reducer em si até que dentro exportemos o reducer dentro de categorias; ele tem variás coisas e podemos exportar várias coisas dele, e uma deles é o reducer
-    carrinho: carrinhoSlice
+    carrinho: carrinhoSlice,
+    busca: buscaSlice
   }
 })
 

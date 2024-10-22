@@ -9,6 +9,7 @@ const Carrinho = () => {
   // pegando o estado de carrinho e total dos valores dos produtos
   const { carrinho, total } = useSelector((state) => {
     let total = 0;
+    const regex = new RegExp(state.busca, 'i')
     // pequando o reducer desse carrinho, para assim modificar o valor dele
     // itens = o primeiro item do array é o próprio array que estamos criando.
     // O segundo parâmetro é cada item que tem dentro do carrinho
@@ -16,10 +17,14 @@ const Carrinho = () => {
       // aqui estamos percorrendo o estado de iten e usando o find para encontrar o id do que bate com o item que tem no carrinho (itemNoCarrinho)
       const item = state.itens.find((item) => item.id === itemNoCarrinho.id);
       total += item.preco * itemNoCarrinho.quantidade;
+     if(item.titulo.match(regex)){
+      // se o titulo der match com o regex ele coloca o item dentro do carrinho
       itens.push({
         ...item, //pequando todas as informações que esta dentro do reducer de itens
         quantidade: itemNoCarrinho.quantidade, //pequando a quantidade que esta dentro de reducer do carrinho
       });
+
+     }
       return itens;
     }, []);
     return {
